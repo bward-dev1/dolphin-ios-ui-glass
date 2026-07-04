@@ -15,12 +15,20 @@
   
   if (self.bootType == EmulationBootTypeFile) {
     std::vector<std::string> paths = {FoundationToCppString(self.path)};
-    
+
     if (self.secondPath != nil) {
       paths.push_back(FoundationToCppString(self.secondPath));
     }
-    
-    boot = BootParameters::GenerateFromFile(paths, BootSessionData());
+
+    if (self.netplayBootSessionData != nullptr) {
+      // Take ownership of the session data NetPlayClient built for this boot (movie/save-sync
+      // settings), rather than a default-constructed one.
+      std::unique_ptr<BootSessionData> session(self.netplayBootSessionData);
+      self.netplayBootSessionData = nullptr;
+      boot = BootParameters::GenerateFromFile(paths, std::move(*session));
+    } else {
+      boot = BootParameters::GenerateFromFile(paths, BootSessionData());
+    }
   } else if (self.bootType == EmulationBootTypeSystemMenu) {
     boot = std::make_unique<BootParameters>(BootParameters::NANDTitle{Titles::SYSTEM_MENU});
   } else {

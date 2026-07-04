@@ -39,40 +39,52 @@ class TCButton: UIButton
     self.setTitle("", for: .normal)
     self.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
     self.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
-    
+
     // TODO: Setting for hapic touch analog triggers enabled
     self.useHapicTouch = self.traitCollection.forceTouchCapability == .available
+
+    NotificationCenter.default.addObserver(self, selector: #selector(updateImage),
+                                            name: TCSkinManager.skinChangedNotification, object: nil)
   }
-  
-  func updateImage()
+
+  @objc func updateImage()
   {
     let buttonType = TCButtonType(rawValue: controllerButton)!
-    
+
     let buttonImage = getImage(named: buttonType.getImageName(), scale: buttonType.getButtonScale())
     self.setImage(buttonImage, for: .normal)
-    
+
     let buttonPressedImage = getImage(named: buttonType.getImageName() + "_pressed", scale: buttonType.getButtonScale())
     self.setImage(buttonPressedImage, for: .selected)
   }
-  
+
   func getImage(named: String, scale: CGFloat) -> UIImage
   {
     // In Interface Builder, the default bundle is not Dolphin's, so we must specify
     // the bundle for the image to load correctly
-    let image = UIImage(named: named, in: Bundle(for: type(of: self)), compatibleWith: nil)!
-    
+    let defaultImage = UIImage(named: named, in: Bundle(for: type(of: self)), compatibleWith: nil)!
+
+    // A custom controller skin can override this specific image; falls back to the
+    // bundled default if the active skin doesn't provide it.
+    let image = TCSkinManager.shared.image(named: named, defaultImage: defaultImage) ?? defaultImage
+
     // Create a new CGSize with the new scale
-    let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-    
+    let newSize = CGSize(width: defaultImage.size.width * scale, height: defaultImage.size.height * scale)
+
     // Render the image into a context
     UIGraphicsBeginImageContext(newSize)
     image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
-    
+
     return newImage.withRenderingMode(.alwaysOriginal)
   }
-  
+
+  deinit
+  {
+    NotificationCenter.default.removeObserver(self)
+  }
+
   @objc func buttonPressed()
   {
     if (isAxis && useHapicTouch)

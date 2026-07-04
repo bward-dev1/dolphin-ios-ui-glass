@@ -581,6 +581,31 @@
                                             <segue destination="qrb-rA-kX0" kind="show" id="MbC-Ee-hLw"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="mi4-6L-0nb">
+                                        <rect key="frame" x="16" y="159.5" width="343" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mi4-6L-0nb" id="801-ac-OUR">
+                                            <rect key="frame" x="0.0" y="0.0" width="316.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Controller Skins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ONJ-JS-aGp">
+                                                    <rect key="frame" x="16" y="11" width="284.5" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ONJ-JS-aGp" firstAttribute="leading" secondItem="801-ac-OUR" secondAttribute="leadingMargin" id="ejW-dq-HNO"/>
+                                                <constraint firstItem="ONJ-JS-aGp" firstAttribute="top" secondItem="801-ac-OUR" secondAttribute="topMargin" id="jcC-Aa-wcz"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ONJ-JS-aGp" secondAttribute="trailing" id="fTU-L2-uiV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ONJ-JS-aGp" secondAttribute="bottom" id="gKA-ow-inc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="EA8-mw-mRC" kind="show" id="XyP-RQ-r7T"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -690,6 +715,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9e-Kr-HbZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3230" y="788"/>
+        </scene>
+        <!--Controller Skins-->
+        <scene sceneID="FKn-0G-iO7">
+            <objects>
+                <tableViewController id="EA8-mw-mRC" customClass="ControllersSkinsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="tZK-gR-Crt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <sections>
+                            <tableViewSection id="Kfz-vk-u1w">
+                                <cells/>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="EA8-mw-mRC" id="1uC-8E-Y3Z"/>
+                            <outlet property="delegate" destination="EA8-mw-mRC" id="UFu-Vd-qEy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Controller Skins" largeTitleDisplayMode="never" id="miv-fD-SJF"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P80-Or-gNc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3231" y="1200"/>
         </scene>
     </scenes>
 </document>

@@ -96,6 +96,11 @@
 		B95AC52E2D29C49F0048E48B /* AudioSessionCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95AC52D2D29C48F0048E48B /* AudioSessionCategoryService.swift */; };
 		B95AC5302D29C7FD0048E48B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95AC52F2D29C7FD0048E48B /* AVFoundation.framework */; };
 		B960AFF1295FB45500A246F0 /* TCDeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B960AFF0295FB45500A246F0 /* TCDeviceMotion.swift */; };
+		ECB733167F844E5A95B9B9A2 /* TCSkinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDC0B89B524C54BB69CD9A /* TCSkinManager.swift */; };
+		FE16939C87869BC1C91655F1 /* NetPlayManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85F254B3FED2ECCC382E9544 /* NetPlayManager.mm */; };
+		FE7954C24112918C84AFCEEF /* NetPlaySetupViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 35F037F3067F4BAFBD2F03B0 /* NetPlaySetupViewController.mm */; };
+		676622375A6BD930D149B2BB /* NetPlayLobbyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C759ABE472FD707431850BD /* NetPlayLobbyViewController.mm */; };
+		3A6A42C2088B426989F2FB87 /* ControllersSkinsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 124C575A32184EF390888711 /* ControllersSkinsViewController.mm */; };
 		B9661F332D2318D300FB2AAB /* MappingInputDisplayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9661F322D2318D300FB2AAB /* MappingInputDisplayViewController.mm */; };
 		B9661F362D23190300FB2AAB /* MappingInputDisplayInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9661F352D23190300FB2AAB /* MappingInputDisplayInputCell.m */; };
 		B96C5DC92CFE4B200046C029 /* Logger.ini in Resources */ = {isa = PBXBuildFile; fileRef = B96C5DC82CFE4B200046C029 /* Logger.ini */; };
@@ -386,6 +391,13 @@
 		B95AC52D2D29C48F0048E48B /* AudioSessionCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionCategoryService.swift; sourceTree = "<group>"; };
 		B95AC52F2D29C7FD0048E48B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B960AFF0295FB45500A246F0 /* TCDeviceMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCDeviceMotion.swift; sourceTree = "<group>"; };
+		0CBDC0B89B524C54BB69CD9A /* TCSkinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCSkinManager.swift; sourceTree = "<group>"; };
+		C4BCB292E45C63437E9121EE /* NetPlayManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetPlayManager.h; sourceTree = "<group>"; };
+		85F254B3FED2ECCC382E9544 /* NetPlayManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetPlayManager.mm; sourceTree = "<group>"; };
+		6CE9536547FD67376813BA88 /* NetPlaySetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetPlaySetupViewController.h; sourceTree = "<group>"; };
+		35F037F3067F4BAFBD2F03B0 /* NetPlaySetupViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetPlaySetupViewController.mm; sourceTree = "<group>"; };
+		28F4CF9C3BE3B5DE9A996277 /* NetPlayLobbyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetPlayLobbyViewController.h; sourceTree = "<group>"; };
+		8C759ABE472FD707431850BD /* NetPlayLobbyViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetPlayLobbyViewController.mm; sourceTree = "<group>"; };
 		B9661F312D2318D300FB2AAB /* MappingInputDisplayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MappingInputDisplayViewController.h; sourceTree = "<group>"; };
 		B9661F322D2318D300FB2AAB /* MappingInputDisplayViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MappingInputDisplayViewController.mm; sourceTree = "<group>"; };
 		B9661F342D23190300FB2AAB /* MappingInputDisplayInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MappingInputDisplayInputCell.h; sourceTree = "<group>"; };
@@ -551,6 +563,8 @@
 		B9EC28392D21DA56000FAE09 /* TCWiiTouchIRMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWiiTouchIRMode.swift; sourceTree = "<group>"; };
 		B9EC283B2D21DE2F000FAE09 /* ControllersTouchscreenIRModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllersTouchscreenIRModeViewController.h; sourceTree = "<group>"; };
 		B9EC283C2D21DE2F000FAE09 /* ControllersTouchscreenIRModeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ControllersTouchscreenIRModeViewController.mm; sourceTree = "<group>"; };
+		C4A09EBDB17F4180B646ADC9 /* ControllersSkinsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllersSkinsViewController.h; sourceTree = "<group>"; };
+		124C575A32184EF390888711 /* ControllersSkinsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ControllersSkinsViewController.mm; sourceTree = "<group>"; };
 		B9EFF8522E7F56790029F016 /* AppIcon_Glass.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon_Glass.icon; sourceTree = "<group>"; };
 		B9EFF8562E7F5E540029F016 /* AppIconBeta_Glass.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIconBeta_Glass.icon; sourceTree = "<group>"; };
 		B9F41C3B2DC53699006D2434 /* cacert.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = cacert.pem; sourceTree = "<group>"; };
@@ -625,6 +639,7 @@
 				B900A7BB27F4CD16000361DD /* FoundationUtil */,
 				B9FCB7B6289658FC0020E233 /* Jit */,
 				B9749241296039BF00794509 /* Mapping */,
+				D472E227695C4299B91E11FA /* NetPlay */,
 				B900A7A827F27EB9000361DD /* Services */,
 				B933EDBB27F6A5C7004D7DD7 /* Swift */,
 				B900A7BF27F4D2E4000361DD /* UI */,
@@ -638,6 +653,15 @@
 				B900A7AF27F2866D000361DD /* UserFolderUtil.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D472E227695C4299B91E11FA /* NetPlay */ = {
+			isa = PBXGroup;
+			children = (
+				C4BCB292E45C63437E9121EE /* NetPlayManager.h */,
+				85F254B3FED2ECCC382E9544 /* NetPlayManager.mm */,
+			);
+			path = NetPlay;
 			sourceTree = "<group>";
 		};
 		B900A7A827F27EB9000361DD /* Services */ = {
@@ -711,6 +735,7 @@
 				B9D93890283DE62700B290FC /* Emulation */,
 				B9B2C655288E40A400CB6569 /* ExternalDisplay */,
 				B97492392960094B00794509 /* Import */,
+				070A6A94F663D9816C3DF497 /* NetPlay */,
 				B938835B287EBA5500910606 /* Settings */,
 				B900A7C527F4D4E2000361DD /* SoftwareList */,
 				B950CFC429621ADA00197719 /* WiiSystemUpdate */,
@@ -770,6 +795,8 @@
 				B9EC28372D21D429000FAE09 /* ControllersTouchscreenViewController.mm */,
 				B9EC283B2D21DE2F000FAE09 /* ControllersTouchscreenIRModeViewController.h */,
 				B9EC283C2D21DE2F000FAE09 /* ControllersTouchscreenIRModeViewController.mm */,
+				C4A09EBDB17F4180B646ADC9 /* ControllersSkinsViewController.h */,
+				124C575A32184EF390888711 /* ControllersSkinsViewController.mm */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -929,6 +956,17 @@
 				B9D9388E283DE3C800B290FC /* EmulationViewController.mm */,
 			);
 			path = Emulation;
+			sourceTree = "<group>";
+		};
+		070A6A94F663D9816C3DF497 /* NetPlay */ = {
+			isa = PBXGroup;
+			children = (
+				28F4CF9C3BE3B5DE9A996277 /* NetPlayLobbyViewController.h */,
+				8C759ABE472FD707431850BD /* NetPlayLobbyViewController.mm */,
+				6CE9536547FD67376813BA88 /* NetPlaySetupViewController.h */,
+				35F037F3067F4BAFBD2F03B0 /* NetPlaySetupViewController.mm */,
+			);
+			path = NetPlay;
 			sourceTree = "<group>";
 		};
 		B938835B287EBA5500910606 /* Settings */ = {
@@ -1580,6 +1618,7 @@
 				B9D938A628418AFD00B290FC /* TCManagerInterface.mm */,
 				B9B2C61D288DB62D00CB6569 /* TCSidewaysWiiPad.swift */,
 				B9B2C61E288DB62D00CB6569 /* TCSidewaysWiiPad.xib */,
+				0CBDC0B89B524C54BB69CD9A /* TCSkinManager.swift */,
 				B9B2C625288DB64700CB6569 /* TCWiiPad.swift */,
 				B9B2C61F288DB62D00CB6569 /* TCWiiPad.xib */,
 				B9EC28392D21DA56000FAE09 /* TCWiiTouchIRMode.swift */,
@@ -2061,6 +2100,11 @@
 				B950CFC92962562200197719 /* main.m in Sources */,
 				B9FCB7D42897C7D80020E233 /* NKitWarningViewControllerDelegate.swift in Sources */,
 				B960AFF1295FB45500A246F0 /* TCDeviceMotion.swift in Sources */,
+				ECB733167F844E5A95B9B9A2 /* TCSkinManager.swift in Sources */,
+				3A6A42C2088B426989F2FB87 /* ControllersSkinsViewController.mm in Sources */,
+				FE16939C87869BC1C91655F1 /* NetPlayManager.mm in Sources */,
+				FE7954C24112918C84AFCEEF /* NetPlaySetupViewController.mm in Sources */,
+				676622375A6BD930D149B2BB /* NetPlayLobbyViewController.mm in Sources */,
 				B97C49B2297E717D00E30877 /* AboutViewController.m in Sources */,
 				B939872E2880896D008E8E47 /* ConfigGameCubeViewController.mm in Sources */,
 				B9D93897283ECE1100B290FC /* DOLUIKitSwitch.m in Sources */,

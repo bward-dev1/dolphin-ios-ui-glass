@@ -195,6 +195,18 @@ typedef NS_ENUM(NSInteger, DOLEmulationVisibleTouchPad) {
     selectedAction.state = UIMenuElementStateOn;
 
     [controllerActions addObject:menu];
+
+    // Motion / gyroscope calibration.
+    UIMenu* motionMenu = [UIMenu menuWithTitle:@"Motion" image:[UIImage systemImageNamed:@"gyroscope"] identifier:nil options:0 children:@[
+      [UIAction actionWithTitle:@"Calibrate Gyroscope" image:[UIImage systemImageNamed:@"level"] identifier:nil handler:^(UIAction*) {
+        [self promptFlatGyroCalibration];
+      }],
+      [UIAction actionWithTitle:@"Calibrate Gyroscope for TV" image:[UIImage systemImageNamed:@"tv"] identifier:nil handler:^(UIAction*) {
+        [self promptTVGyroCalibration];
+      }]
+    ]];
+
+    [controllerActions addObject:motionMenu];
   }
 
   NSMutableArray<UIMenuElement*>* stateSlotActions = [[NSMutableArray alloc] init];
@@ -280,6 +292,53 @@ typedef NS_ENUM(NSInteger, DOLEmulationVisibleTouchPad) {
   }
 
   self.navigationItem.leftBarButtonItem.menu = [UIMenu menuWithChildren:menuItems];
+}
+
+// "Calibrate Gyroscope": lay the device flat and still, then confirm. Measures the
+// resting gyro bias and subtracts it from all future readings to kill motion drift.
+- (void)promptFlatGyroCalibration {
+  UIAlertController* alert = [UIAlertController
+      alertControllerWithTitle:@"Calibrate Gyroscope"
+                       message:@"Lay your device down perfectly flat and still on a level "
+                               @"surface, then tap Calibrate. Hold still for a moment."
+                preferredStyle:UIAlertControllerStyleAlert];
+
+  [alert addAction:[UIAlertAction actionWithTitle:@"Calibrate"
+                                            style:UIAlertActionStyleDefault
+                                          handler:^(UIAlertAction*) {
+    [[TCDeviceMotion shared] calibrateFlat:^{
+      UIAlertController* done = [UIAlertController
+          alertControllerWithTitle:@"Gyroscope Calibrated"
+                           message:@"Resting drift has been zeroed."
+                    preferredStyle:UIAlertControllerStyleAlert];
+      [done addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+      [self presentViewController:done animated:YES completion:nil];
+    }];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+// "Calibrate Gyroscope for TV": hold the device flat and point its front-middle edge
+// straight at the TV, then confirm. Pulses the IMU-IR Recenter so the current orientation
+// becomes forward — aiming at the TV then centers the pointer, no arm-strain tilt.
+- (void)promptTVGyroCalibration {
+  UIAlertController* alert = [UIAlertController
+      alertControllerWithTitle:@"Calibrate Gyroscope for TV"
+                       message:@"Hold your device flat and point the front-middle of it "
+                               @"directly at your TV, then tap Calibrate. The pointer will "
+                               @"re-center to face your TV."
+                preferredStyle:UIAlertControllerStyleAlert];
+
+  [alert addAction:[UIAlertAction actionWithTitle:@"Calibrate"
+                                            style:UIAlertActionStyleDefault
+                                          handler:^(UIAlertAction*) {
+    [[TCDeviceMotion shared] recenterPointer];
+  }]];
+  [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)viewDidLayoutSubviews {

@@ -5,7 +5,7 @@ import Foundation
 
 // based off ButtonManager::ButtonType
 @objc
-enum TCButtonType: Int
+enum TCButtonType: Int, CaseIterable
 {
   // GameCube
   case gcButtonA = 0
