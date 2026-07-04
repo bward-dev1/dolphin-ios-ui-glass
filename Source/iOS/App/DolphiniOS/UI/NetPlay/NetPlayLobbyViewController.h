@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NetPlayLobbyViewController : UIViewController
+@interface NetPlayLobbyViewController : UITableViewController
 
 @end
 

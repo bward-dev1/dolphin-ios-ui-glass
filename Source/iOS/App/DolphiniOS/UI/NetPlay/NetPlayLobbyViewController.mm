@@ -7,24 +7,26 @@
 #import "EmulationViewController.h"
 #import "NetPlayManager.h"
 
-@interface NetPlayLobbyViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface NetPlayLobbyViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation NetPlayLobbyViewController {
-  UILabel* _statusLabel;
   UILabel* _hostCodeLabel;
-  UITableView* _playersTable;
+  UILabel* _statusLabel;
   UITextView* _chatView;
   UITextField* _chatInputField;
   UIButton* _startButton;
+}
+
+- (instancetype)init {
+  return [super initWithStyle:UITableViewStyleInsetGrouped];
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
   self.title = @"NetPlay Lobby";
-  self.view.backgroundColor = [UIColor systemBackgroundColor];
 
   self.navigationItem.hidesBackButton = YES;
   self.navigationItem.leftBarButtonItem =
@@ -33,8 +35,10 @@
                                        target:self
                                        action:@selector(leaveTapped)];
 
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PlayerCell"];
+
   _hostCodeLabel = [[UILabel alloc] init];
-  _hostCodeLabel.font = [UIFont monospacedSystemFontOfSize:28 weight:UIFontWeightBold];
+  _hostCodeLabel.font = [UIFont monospacedSystemFontOfSize:32 weight:UIFontWeightBold];
   _hostCodeLabel.textAlignment = NSTextAlignmentCenter;
   _hostCodeLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -45,10 +49,20 @@
   _statusLabel.numberOfLines = 0;
   _statusLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
-  _playersTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
-  _playersTable.dataSource = self;
-  _playersTable.delegate = self;
-  _playersTable.translatesAutoresizingMaskIntoConstraints = NO;
+  UIStackView* headerStack = [[UIStackView alloc] initWithArrangedSubviews:@[ _hostCodeLabel, _statusLabel ]];
+  headerStack.axis = UILayoutConstraintAxisVertical;
+  headerStack.spacing = 4;
+  headerStack.translatesAutoresizingMaskIntoConstraints = NO;
+
+  UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 76)];
+  [header addSubview:headerStack];
+  [NSLayoutConstraint activateConstraints:@[
+    [headerStack.topAnchor constraintEqualToAnchor:header.topAnchor constant:16],
+    [headerStack.leadingAnchor constraintGreaterThanOrEqualToAnchor:header.leadingAnchor constant:16],
+    [headerStack.trailingAnchor constraintLessThanOrEqualToAnchor:header.trailingAnchor constant:-16],
+    [headerStack.centerXAnchor constraintEqualToAnchor:header.centerXAnchor],
+  ]];
+  self.tableView.tableHeaderView = header;
 
   _chatView = [[UITextView alloc] init];
   _chatView.editable = NO;
@@ -57,6 +71,7 @@
   _chatView.layer.borderColor = [UIColor separatorColor].CGColor;
   _chatView.layer.borderWidth = 1;
   _chatView.layer.cornerRadius = 8;
+  [_chatView.heightAnchor constraintEqualToConstant:120].active = YES;
 
   _chatInputField = [[UITextField alloc] init];
   _chatInputField.placeholder = @"Message";
@@ -81,22 +96,20 @@
   _startButton.translatesAutoresizingMaskIntoConstraints = NO;
   _startButton.hidden = ![NetPlayManager shared].isHost;
 
-  UIStackView* stack = [[UIStackView alloc] initWithArrangedSubviews:@[
-    _hostCodeLabel, _statusLabel, _playersTable, _chatView, chatInputRow, _startButton
-  ]];
-  stack.axis = UILayoutConstraintAxisVertical;
-  stack.spacing = 12;
-  stack.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view addSubview:stack];
+  UIStackView* footerStack = [[UIStackView alloc] initWithArrangedSubviews:@[ _chatView, chatInputRow, _startButton ]];
+  footerStack.axis = UILayoutConstraintAxisVertical;
+  footerStack.spacing = 16;
+  footerStack.translatesAutoresizingMaskIntoConstraints = NO;
 
+  UIView* footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 220)];
+  [footer addSubview:footerStack];
   [NSLayoutConstraint activateConstraints:@[
-    [stack.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:12],
-    [stack.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16],
-    [stack.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16],
-    [stack.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-12],
-    [_playersTable.heightAnchor constraintEqualToConstant:160],
-    [_chatView.heightAnchor constraintEqualToConstant:120],
+    [footerStack.topAnchor constraintEqualToAnchor:footer.topAnchor constant:16],
+    [footerStack.leadingAnchor constraintEqualToAnchor:footer.leadingAnchor constant:16],
+    [footerStack.trailingAnchor constraintEqualToAnchor:footer.trailingAnchor constant:-16],
+    [footerStack.bottomAnchor constraintEqualToAnchor:footer.bottomAnchor constant:-16],
   ]];
+  self.tableView.tableFooterView = footer;
 
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(handleUpdate)
@@ -124,7 +137,7 @@
   _statusLabel.text = manager.statusText;
   _startButton.hidden = !manager.isHost;
 
-  [_playersTable reloadData];
+  [self.tableView reloadData];
 
   NSArray<NSString*>* chat = manager.chatLog;
   _chatView.text = [chat componentsJoinedByString:@"\n"];
@@ -165,8 +178,16 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+  return 1;
+}
+
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
   return [NetPlayManager shared].players.count;
+}
+
+- (nullable NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
+  return @"Players";
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -185,9 +206,9 @@
 
 #pragma mark - Emulation handoff
 
-// NetPlayLobbyViewController is always plain alloc/init (see NetPlaySetupViewController), never
-// loaded from a storyboard scene of its own, so a storyboard segue isn't available here.
-// Instantiate the real Emulation.storyboard directly instead - same scene, same boot pipeline
+// NetPlayLobbyViewController is always plain alloc/init, never loaded from a storyboard scene
+// of its own, so a storyboard segue isn't available here. Instantiate the real
+// Emulation.storyboard directly instead - same scene, same boot pipeline
 // (EmulationViewController.bootParameter -> BootManager::BootCore) as every other boot path,
 // just triggered in code rather than via a segue.
 - (void)presentEmulationWithBootParameter:(EmulationBootParameter*)bootParameter {

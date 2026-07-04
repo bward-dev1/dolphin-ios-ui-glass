@@ -22,6 +22,7 @@
 #import "GameFilePtrWrapper.h"
 #import "ImportFileManager.h"
 #import "LocalizationUtil.h"
+#import "NetPlaySetupViewController.h"
 
 typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
   DOLSoftwareListDocumentPickerTypeImportSoftware,
@@ -130,6 +131,11 @@ typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
   addIPLAction(DiscIO::Region::PAL, @"PAL", EUR_DIR);
   
   self.navigationItem.leftBarButtonItem.menu = [UIMenu menuWithChildren:@[
+    [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:@[
+      [UIAction actionWithTitle:@"Play Together..." image:[UIImage systemImageNamed:@"person.2.fill"] identifier:nil handler:^(UIAction*) {
+        [self playTogetherTapped];
+      }]
+    ]],
     [UIAction actionWithTitle:DOLCoreLocalizedString(@"Open") image:[UIImage systemImageNamed:@"externaldrive"] identifier:nil handler:^(UIAction*) {
       [self openDocumentPickerWithSoftwareContentTypesAndPickerType:DOLSoftwareListDocumentPickerTypeOpenExternal];
     }],
@@ -138,6 +144,13 @@ typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
     ]],
     [UIMenu menuWithTitle:DOLCoreLocalizedString(@"Wii") image:nil identifier:nil options:UIMenuOptionsDisplayInline children:wiiActions]
   ]];
+}
+
+- (void)playTogetherTapped {
+  NetPlaySetupViewController* setup = [[NetPlaySetupViewController alloc] init];
+  UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:setup];
+  nav.modalPresentationStyle = UIModalPresentationFullScreen;
+  [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)openDocumentPickerWithSoftwareContentTypesAndPickerType:(DOLSoftwareListDocumentPickerType)pickerType {
