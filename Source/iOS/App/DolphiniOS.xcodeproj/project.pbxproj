@@ -783,7 +783,6 @@
 				B97492392960094B00794509 /* Import */,
 				070A6A94F663D9816C3DF497 /* NetPlay */,
 				7049131AB863CB6E34B193EF /* RemoteController */,
-				B0AFCDAD34E83AE5805C22B2 /* CoverArt */,
 				B938835B287EBA5500910606 /* Settings */,
 				B900A7C527F4D4E2000361DD /* SoftwareList */,
 				B950CFC429621ADA00197719 /* WiiSystemUpdate */,
@@ -795,6 +794,7 @@
 			isa = PBXGroup;
 			children = (
 				B9809C572A48118D00877579 /* Properties */,
+				B0AFCDAD34E83AE5805C22B2 /* CoverArt */,
 				B99137B72882A58000588446 /* SoftwareList.storyboard */,
 				B9EC1A41295FFFD30013EBE4 /* SoftwareListiOSViewController.h */,
 				B9EC1A42295FFFD30013EBE4 /* SoftwareListiOSViewController.mm */,
