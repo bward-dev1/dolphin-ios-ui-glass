@@ -106,6 +106,9 @@
 		3A6A42C2088B426989F2FB87 /* ControllersSkinsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 124C575A32184EF390888711 /* ControllersSkinsViewController.mm */; };
 		0A565A38967039C8D649554F /* CoverArtDatabaseDownloader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16816B9EFEA4B93E5FE8B245 /* CoverArtDatabaseDownloader.mm */; };
 		985A47EADA2E1A4B712A8E72 /* CoverArtSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB3DED0BCAB8CF0820B68D35 /* CoverArtSettingsViewController.mm */; };
+		1BC1C3385D07ED4D7924D6AA /* CoverArtPickerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 584E54CBC8AAB593EB7E0800 /* CoverArtPickerViewController.mm */; };
+		0A7F40831922F9035D8B8AC3 /* CoverArtPreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7114E5AB020DF61E035F4AB4 /* CoverArtPreviewViewController.mm */; };
+		FE58B35FFB5E8AF1E517863B /* GameLibraryPreferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6B62F483CA860B6ADEE5EA3 /* GameLibraryPreferences.mm */; };
 		B9661F332D2318D300FB2AAB /* MappingInputDisplayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9661F322D2318D300FB2AAB /* MappingInputDisplayViewController.mm */; };
 		B9661F362D23190300FB2AAB /* MappingInputDisplayInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9661F352D23190300FB2AAB /* MappingInputDisplayInputCell.m */; };
 		B96C5DC92CFE4B200046C029 /* Logger.ini in Resources */ = {isa = PBXBuildFile; fileRef = B96C5DC82CFE4B200046C029 /* Logger.ini */; };
@@ -413,6 +416,12 @@
 		16816B9EFEA4B93E5FE8B245 /* CoverArtDatabaseDownloader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverArtDatabaseDownloader.mm; sourceTree = "<group>"; };
 		65551808190885EAE879AB74 /* CoverArtSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverArtSettingsViewController.h; sourceTree = "<group>"; };
 		AB3DED0BCAB8CF0820B68D35 /* CoverArtSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverArtSettingsViewController.mm; sourceTree = "<group>"; };
+		8A6CB83E6AFC90C9D2E80742 /* CoverArtPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverArtPickerViewController.h; sourceTree = "<group>"; };
+		584E54CBC8AAB593EB7E0800 /* CoverArtPickerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverArtPickerViewController.mm; sourceTree = "<group>"; };
+		AC4FB5F012BCDC04F0EEAC55 /* CoverArtPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverArtPreviewViewController.h; sourceTree = "<group>"; };
+		7114E5AB020DF61E035F4AB4 /* CoverArtPreviewViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverArtPreviewViewController.mm; sourceTree = "<group>"; };
+		2800E304A19853C1D79CFF5A /* GameLibraryPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameLibraryPreferences.h; sourceTree = "<group>"; };
+		E6B62F483CA860B6ADEE5EA3 /* GameLibraryPreferences.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GameLibraryPreferences.mm; sourceTree = "<group>"; };
 		B9661F312D2318D300FB2AAB /* MappingInputDisplayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MappingInputDisplayViewController.h; sourceTree = "<group>"; };
 		B9661F322D2318D300FB2AAB /* MappingInputDisplayViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MappingInputDisplayViewController.mm; sourceTree = "<group>"; };
 		B9661F342D23190300FB2AAB /* MappingInputDisplayInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MappingInputDisplayInputCell.h; sourceTree = "<group>"; };
@@ -754,6 +763,8 @@
 				B900A7D427F61F3A000361DD /* GameFileCacheManager.mm */,
 				B933EDBF27F77D1E004D7DD7 /* GameFilePtrWrapper.h */,
 				B933EDC027F77D1E004D7DD7 /* GameFilePtrWrapper.mm */,
+				2800E304A19853C1D79CFF5A /* GameLibraryPreferences.h */,
+				E6B62F483CA860B6ADEE5EA3 /* GameLibraryPreferences.mm */,
 				B900A7CE27F4DB9A000361DD /* SoftwareListCell.swift */,
 				B900A7C827F4DA97000361DD /* SoftwareListViewController.h */,
 				B900A7C927F4DA97000361DD /* SoftwareListViewController.mm */,
@@ -772,6 +783,7 @@
 				B97492392960094B00794509 /* Import */,
 				070A6A94F663D9816C3DF497 /* NetPlay */,
 				7049131AB863CB6E34B193EF /* RemoteController */,
+				B0AFCDAD34E83AE5805C22B2 /* CoverArt */,
 				B938835B287EBA5500910606 /* Settings */,
 				B900A7C527F4D4E2000361DD /* SoftwareList */,
 				B950CFC429621ADA00197719 /* WiiSystemUpdate */,
@@ -1023,6 +1035,17 @@
 				D819A891005ACB865FA02977 /* RemoteControllerViewController.mm */,
 			);
 			path = RemoteController;
+			sourceTree = "<group>";
+		};
+		B0AFCDAD34E83AE5805C22B2 /* CoverArt */ = {
+			isa = PBXGroup;
+			children = (
+				8A6CB83E6AFC90C9D2E80742 /* CoverArtPickerViewController.h */,
+				584E54CBC8AAB593EB7E0800 /* CoverArtPickerViewController.mm */,
+				AC4FB5F012BCDC04F0EEAC55 /* CoverArtPreviewViewController.h */,
+				7114E5AB020DF61E035F4AB4 /* CoverArtPreviewViewController.mm */,
+			);
+			path = CoverArt;
 			sourceTree = "<group>";
 		};
 		B938835B287EBA5500910606 /* Settings */ = {
@@ -2167,6 +2190,9 @@
 				79F50FB15BD868E57E10DE01 /* ControllersDSUViewController.mm in Sources */,
 				0A565A38967039C8D649554F /* CoverArtDatabaseDownloader.mm in Sources */,
 				985A47EADA2E1A4B712A8E72 /* CoverArtSettingsViewController.mm in Sources */,
+				1BC1C3385D07ED4D7924D6AA /* CoverArtPickerViewController.mm in Sources */,
+				0A7F40831922F9035D8B8AC3 /* CoverArtPreviewViewController.mm in Sources */,
+				FE58B35FFB5E8AF1E517863B /* GameLibraryPreferences.mm in Sources */,
 				B97C49B2297E717D00E30877 /* AboutViewController.m in Sources */,
 				B939872E2880896D008E8E47 /* ConfigGameCubeViewController.mm in Sources */,
 				B9D93897283ECE1100B290FC /* DOLUIKitSwitch.m in Sources */,

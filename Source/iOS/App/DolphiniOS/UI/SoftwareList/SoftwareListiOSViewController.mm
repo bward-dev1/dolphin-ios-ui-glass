@@ -22,6 +22,8 @@
 #import "GameFilePtrWrapper.h"
 #import "ImportFileManager.h"
 #import "LocalizationUtil.h"
+#import "CoverArtPickerViewController.h"
+#import "GameLibraryPreferences.h"
 #import "NetPlaySetupViewController.h"
 #import "RemoteControllerViewController.h"
 
@@ -131,6 +133,30 @@ typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
   addIPLAction(DiscIO::Region::NTSC_U, @"NTSC-U", USA_DIR);
   addIPLAction(DiscIO::Region::PAL, @"PAL", EUR_DIR);
   
+  GameLibraryPreferences* libraryPrefs = [GameLibraryPreferences shared];
+  GameLibrarySortMode currentSortMode = libraryPrefs.sortMode;
+
+  void (^addSortAction)(NSMutableArray<UIMenuElement*>*, NSString*, GameLibrarySortMode) =
+      ^(NSMutableArray<UIMenuElement*>* elements, NSString* title, GameLibrarySortMode mode) {
+    UIAction* action = [UIAction actionWithTitle:title image:nil identifier:nil handler:^(UIAction*) {
+      libraryPrefs.sortMode = mode;
+      [self refreshSortAndFilter];
+    }];
+    action.state = (currentSortMode == mode) ? UIMenuElementStateOn : UIMenuElementStateOff;
+    [elements addObject:action];
+  };
+
+  NSMutableArray<UIMenuElement*>* sortActions = [[NSMutableArray alloc] init];
+  addSortAction(sortActions, @"Name", GameLibrarySortModeName);
+  addSortAction(sortActions, @"Recently Played", GameLibrarySortModeRecentlyPlayed);
+  addSortAction(sortActions, @"Favorites First", GameLibrarySortModeFavoritesFirst);
+
+  UIAction* favoritesOnlyAction = [UIAction actionWithTitle:@"Favorites Only" image:[UIImage systemImageNamed:@"star"] identifier:nil handler:^(UIAction*) {
+    libraryPrefs.favoritesOnly = !libraryPrefs.favoritesOnly;
+    [self refreshSortAndFilter];
+  }];
+  favoritesOnlyAction.state = libraryPrefs.favoritesOnly ? UIMenuElementStateOn : UIMenuElementStateOff;
+
   self.navigationItem.leftBarButtonItem.menu = [UIMenu menuWithChildren:@[
     [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:@[
       [UIAction actionWithTitle:@"Play Together..." image:[UIImage systemImageNamed:@"person.2.fill"] identifier:nil handler:^(UIAction*) {
@@ -139,6 +165,10 @@ typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
       [UIAction actionWithTitle:@"Remote Controller Mode..." image:[UIImage systemImageNamed:@"gamecontroller"] identifier:nil handler:^(UIAction*) {
         [self remoteControllerModeTapped];
       }]
+    ]],
+    [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:@[
+      [UIMenu menuWithTitle:@"Sort By" image:[UIImage systemImageNamed:@"arrow.up.arrow.down"] identifier:nil options:0 children:sortActions],
+      favoritesOnlyAction
     ]],
     [UIAction actionWithTitle:DOLCoreLocalizedString(@"Open") image:[UIImage systemImageNamed:@"externaldrive"] identifier:nil handler:^(UIAction*) {
       [self openDocumentPickerWithSoftwareContentTypesAndPickerType:DOLSoftwareListDocumentPickerTypeOpenExternal];
@@ -263,8 +293,23 @@ typedef NS_ENUM(NSInteger, DOLSoftwareListDocumentPickerType) {
     
     [actions addObject:[UIAction actionWithTitle:DOLCoreLocalizedString(@"Properties") image:[UIImage systemImageNamed:@"square.and.pencil"] identifier:nil handler:^(UIAction*) {
       self->_selectedFile = gameFileWrapper;
-      
+
       [self performSegueWithIdentifier:@"properties" sender:nil];
+    }]];
+
+    [actions addObject:[UIAction actionWithTitle:@"Change Cover..." image:[UIImage systemImageNamed:@"photo"] identifier:nil handler:^(UIAction*) {
+      CoverArtPickerViewController* picker = [[CoverArtPickerViewController alloc] initWithGameFileWrapper:gameFileWrapper];
+      UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:picker];
+      [self presentViewController:nav animated:YES completion:nil];
+    }]];
+
+    NSString* gameID = CppToFoundationString(gameFileWrapper.gameFile->GetGameID());
+    BOOL isFavorite = [[GameLibraryPreferences shared] isFavoriteGameID:gameID];
+    NSString* favoriteTitle = isFavorite ? @"Remove from Favorites" : @"Add to Favorites";
+    NSString* favoriteImage = isFavorite ? @"star.slash" : @"star";
+    [actions addObject:[UIAction actionWithTitle:favoriteTitle image:[UIImage systemImageNamed:favoriteImage] identifier:nil handler:^(UIAction*) {
+      [[GameLibraryPreferences shared] setFavorite:!isFavorite forGameID:gameID];
+      [self refreshSortAndFilter];
     }]];
     
     UIAction* deleteAction = [UIAction actionWithTitle:DOLCoreLocalizedString(@"Delete") image:[UIImage systemImageNamed:@"trash"] identifier:nil handler:^(UIAction*) {

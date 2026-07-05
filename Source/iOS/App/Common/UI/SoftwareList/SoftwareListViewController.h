@@ -13,6 +13,11 @@ enum class Region;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SoftwareListViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout> {
+  // The full, unsorted/unfiltered library, refreshed on each rescan.
+  NSArray<GameFilePtrWrapper*>* _allGameFiles;
+  // What's actually shown - _allGameFiles after the current sort mode and favorites-only filter
+  // are applied. Every existing index-based lookup (cellForItemAtIndexPath, context menu, etc)
+  // reads this, unchanged from before sorting/filtering existed.
   NSArray<GameFilePtrWrapper*>* _gameFiles;
   GameFilePtrWrapper* _selectedFile;
   EmulationBootParameter* _bootParameter;
@@ -21,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadGameFiles;
 - (void)loadGameFile:(GameFilePtrWrapper*)gameFileWrapper;
 - (void)loadGameCubeIPLForRegion:(DiscIO::Region)region;
+
+// Re-derives _gameFiles from _allGameFiles using the current GameLibraryPreferences sort mode
+// and favorites-only filter, then reloads the collection view. Call after changing either.
+- (void)refreshSortAndFilter;
 
 - (void)performSegueForWiiUpdateWithSource:(NSString*)source isOnline:(bool)online;
 

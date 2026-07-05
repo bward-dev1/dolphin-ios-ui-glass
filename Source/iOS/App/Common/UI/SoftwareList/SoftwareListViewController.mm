@@ -8,6 +8,7 @@
 #import "FoundationStringUtil.h"
 #import "GameFileCacheManager.h"
 #import "GameFilePtrWrapper.h"
+#import "GameLibraryPreferences.h"
 #import "SoftwarePropertiesViewController.h"
 #import "Swift.h"
 #import "WiiSystemUpdateViewController.h"
@@ -25,23 +26,74 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  self->_gameFiles = [[GameFileCacheManager sharedManager] getGames];
+
+  self->_allGameFiles = [[GameFileCacheManager sharedManager] getGames];
+  [self refreshSortAndFilter];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  
+
   [self reloadGameFiles];
 }
 
 - (void)reloadGameFiles {
   [[GameFileCacheManager sharedManager] rescanAndFetchMetadataWithCompletionHandler:^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      self->_gameFiles = [[GameFileCacheManager sharedManager] getGames];
-      [self.collectionView reloadData];
+      self->_allGameFiles = [[GameFileCacheManager sharedManager] getGames];
+      [self refreshSortAndFilter];
     });
   }];
+}
+
+- (void)refreshSortAndFilter {
+  GameLibraryPreferences* prefs = [GameLibraryPreferences shared];
+  NSArray<GameFilePtrWrapper*>* source = self->_allGameFiles ?: @[];
+
+  if (prefs.favoritesOnly) {
+    NSMutableArray<GameFilePtrWrapper*>* filtered = [NSMutableArray array];
+    for (GameFilePtrWrapper* wrapper in source) {
+      if ([prefs isFavoriteGameID:CppToFoundationString(wrapper.gameFile->GetGameID())]) {
+        [filtered addObject:wrapper];
+      }
+    }
+    source = filtered;
+  }
+
+  NSArray<GameFilePtrWrapper*>* sorted;
+  switch (prefs.sortMode) {
+  case GameLibrarySortModeRecentlyPlayed:
+    sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
+      NSTimeInterval timeA = [prefs lastPlayedTimeForGameID:CppToFoundationString(a.gameFile->GetGameID())];
+      NSTimeInterval timeB = [prefs lastPlayedTimeForGameID:CppToFoundationString(b.gameFile->GetGameID())];
+      if (timeA == timeB) {
+        return NSOrderedSame;
+      }
+      return timeA > timeB ? NSOrderedAscending : NSOrderedDescending;
+    }];
+    break;
+  case GameLibrarySortModeFavoritesFirst:
+    sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
+      BOOL favA = [prefs isFavoriteGameID:CppToFoundationString(a.gameFile->GetGameID())];
+      BOOL favB = [prefs isFavoriteGameID:CppToFoundationString(b.gameFile->GetGameID())];
+      if (favA == favB) {
+        return NSOrderedSame;
+      }
+      return favA ? NSOrderedAscending : NSOrderedDescending;
+    }];
+    break;
+  case GameLibrarySortModeName:
+  default:
+    sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
+      NSString* nameA = CppToFoundationString(a.gameFile->GetName(UICommon::GameFile::Variant::LongAndPossiblyCustom));
+      NSString* nameB = CppToFoundationString(b.gameFile->GetName(UICommon::GameFile::Variant::LongAndPossiblyCustom));
+      return [nameA localizedCaseInsensitiveCompare:nameB];
+    }];
+    break;
+  }
+
+  self->_gameFiles = sorted;
+  [self.collectionView reloadData];
 }
 
 - (void)loadGameFile:(GameFilePtrWrapper*)gameFileWrapper {
@@ -51,7 +103,7 @@
   std::shared_ptr<const UICommon::GameFile> match_without_revision = nullptr;
   
   if (DiscIO::IsDisc(game->GetPlatform())) {
-    for (GameFilePtrWrapper* otherWrapper in self->_gameFiles) {
+    for (GameFilePtrWrapper* otherWrapper in self->_allGameFiles) {
       std::shared_ptr<const UICommon::GameFile> other_game = otherWrapper.gameFile;
       
       if (game->GetGameID() == other_game->GetGameID() &&
@@ -75,7 +127,9 @@
   _bootParameter.path = CppToFoundationString(game->GetFilePath());
   _bootParameter.secondPath = second_game != nullptr ? CppToFoundationString(second_game->GetFilePath()) : nil;
   _bootParameter.isNKit = gameFileWrapper.gameFile->IsNKit();
-  
+
+  [[GameLibraryPreferences shared] recordPlayedGameID:CppToFoundationString(game->GetGameID())];
+
   [self performSegueWithIdentifier:@"emulation" sender:nil];
 }
 

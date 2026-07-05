@@ -5,6 +5,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// One entry from the bundled GameTDB title list: a disc/title ID and its display name.
+@interface CoverArtTitle : NSObject
+@property (nonatomic, copy) NSString* gameID;
+@property (nonatomic, copy) NSString* name;
+@end
+
 // Downloads GameTDB cover art for EVERY game DiscIO/wiitdb.txt knows about - not just the ones
 // currently installed - so the library browses with real box art even before you own a game
 // (or just for completeness). Writes into the exact same on-disk cover cache
@@ -31,6 +37,18 @@ NS_ASSUME_NONNULL_BEGIN
                completionHandler:(void (^)(BOOL wasCancelled))completionHandler;
 
 - (void)cancel;
+
+// Every title the bundled GameTDB list knows about - used to let a user search for and pick a
+// specific alternate cover when the automatic exact-ID match got it wrong (e.g. a disc with
+// unusual/homebrew header data). Runs synchronously; call off the main thread if the caller
+// cares about not blocking briefly.
+- (NSArray<CoverArtTitle*>*)allTitles;
+
+// Fetches the raw PNG bytes for a specific GameTDB ID directly (bypassing the on-disk cache -
+// this is for previewing a candidate cover before committing to it, not for the normal
+// per-installed-game download path). Calls completionHandler on the main queue with the image
+// data, or nil on failure.
+- (void)fetchCoverForGameID:(NSString*)gameID completionHandler:(void (^)(NSData* _Nullable imageData))completionHandler;
 
 @end
 

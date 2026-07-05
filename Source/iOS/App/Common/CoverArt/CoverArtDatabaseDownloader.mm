@@ -9,6 +9,9 @@
 
 static NSInteger const kMaxConcurrentDownloads = 4;
 
+@implementation CoverArtTitle
+@end
+
 @implementation CoverArtDatabaseDownloader {
   NSURLSession* _session;
   NSString* _coverCacheDir;
@@ -47,16 +50,16 @@ static NSInteger const kMaxConcurrentDownloads = 4;
 
 // wiitdb-en.txt is "GAMEID = Name", one per line, the same bundled GameTDB title list
 // Core::TitleDatabase already parses for name lookups - reusing it here means "download the
-// whole database" covers exactly the same games Dolphin itself knows about, not a hand-curated
-// or guessed list.
-- (NSArray<NSString*>*)parseAllGameIDs {
+// whole database" (and the manual cover picker's search) covers exactly the same games Dolphin
+// itself knows about, not a hand-curated or guessed list.
+- (NSArray<CoverArtTitle*>*)parseAllTitles {
   NSString* path = CppToFoundationString((File::GetSysDirectory() + "wiitdb-en.txt"));
   NSString* contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
   if (contents == nil) {
     return @[];
   }
 
-  NSMutableArray<NSString*>* ids = [NSMutableArray array];
+  NSMutableArray<CoverArtTitle*>* titles = [NSMutableArray array];
   [contents enumerateLinesUsingBlock:^(NSString* _Nonnull line, BOOL* _Nonnull stop) {
     NSRange equalsRange = [line rangeOfString:@"="];
     if (equalsRange.location == NSNotFound) {
@@ -64,11 +67,49 @@ static NSInteger const kMaxConcurrentDownloads = 4;
     }
     NSString* gameID = [[line substringToIndex:equalsRange.location]
         stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (gameID.length >= 4) {
-      [ids addObject:gameID];
+    if (gameID.length < 4) {
+      return;
     }
+    NSString* name = [[line substringFromIndex:equalsRange.location + 1]
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    CoverArtTitle* title = [[CoverArtTitle alloc] init];
+    title.gameID = gameID;
+    title.name = name;
+    [titles addObject:title];
   }];
+  return titles;
+}
+
+- (NSArray<NSString*>*)parseAllGameIDs {
+  NSMutableArray<NSString*>* ids = [NSMutableArray array];
+  for (CoverArtTitle* title in [self parseAllTitles]) {
+    [ids addObject:title.gameID];
+  }
   return ids;
+}
+
+- (NSArray<CoverArtTitle*>*)allTitles {
+  return [self parseAllTitles];
+}
+
+- (void)fetchCoverForGameID:(NSString*)gameID completionHandler:(void (^)(NSData* _Nullable))completionHandler {
+  NSString* region = [self regionCodeForGameID:gameID];
+  NSString* urlString =
+      [NSString stringWithFormat:@"https://art.gametdb.com/wii/cover/%@/%@.png", region, gameID];
+  NSURL* url = [NSURL URLWithString:urlString];
+
+  NSURLSessionDataTask* task = [_session
+      dataTaskWithURL:url
+    completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
+      NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+      NSData* result = (data != nil && error == nil && httpResponse.statusCode == 200) ? data : nil;
+
+      dispatch_async(dispatch_get_main_queue(), ^{
+        completionHandler(result);
+      });
+    }];
+  [task resume];
 }
 
 - (NSString*)coverCacheDirectory {
