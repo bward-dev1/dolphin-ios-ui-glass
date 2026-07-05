@@ -62,7 +62,7 @@
 
   NSArray<GameFilePtrWrapper*>* sorted;
   switch (prefs.sortMode) {
-  case GameLibrarySortModeRecentlyPlayed:
+  case GameLibrarySortModeRecentlyPlayed: {
     sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
       NSTimeInterval timeA = [prefs lastPlayedTimeForGameID:CppToFoundationString(a.gameFile->GetGameID())];
       NSTimeInterval timeB = [prefs lastPlayedTimeForGameID:CppToFoundationString(b.gameFile->GetGameID())];
@@ -72,7 +72,8 @@
       return timeA > timeB ? NSOrderedAscending : NSOrderedDescending;
     }];
     break;
-  case GameLibrarySortModeFavoritesFirst:
+  }
+  case GameLibrarySortModeFavoritesFirst: {
     sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
       BOOL favA = [prefs isFavoriteGameID:CppToFoundationString(a.gameFile->GetGameID())];
       BOOL favB = [prefs isFavoriteGameID:CppToFoundationString(b.gameFile->GetGameID())];
@@ -82,14 +83,16 @@
       return favA ? NSOrderedAscending : NSOrderedDescending;
     }];
     break;
+  }
   case GameLibrarySortModeName:
-  default:
+  default: {
     sorted = [source sortedArrayUsingComparator:^NSComparisonResult(GameFilePtrWrapper* a, GameFilePtrWrapper* b) {
       NSString* nameA = CppToFoundationString(a.gameFile->GetName(UICommon::GameFile::Variant::LongAndPossiblyCustom));
       NSString* nameB = CppToFoundationString(b.gameFile->GetName(UICommon::GameFile::Variant::LongAndPossiblyCustom));
       return [nameA localizedCaseInsensitiveCompare:nameB];
     }];
     break;
+  }
   }
 
   self->_gameFiles = sorted;
