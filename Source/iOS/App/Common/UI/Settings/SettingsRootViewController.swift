@@ -22,6 +22,10 @@ class SettingsRootViewController : UITableViewController {
       UIApplication.shared.open(URL(string: "https://oatmealdome.me/dolphinios/")!)
     } else if (indexPath.section == 1 && indexPath.row == 3) {
       navigationController?.pushViewController(CoverArtSettingsViewController(), animated: true)
+    } else if (indexPath.section == 1 && indexPath.row == 4) {
+      navigationController?.pushViewController(AppIconSelectorViewController(), animated: true)
+    } else if (indexPath.section == 1 && indexPath.row == 5) {
+      navigationController?.pushViewController(OptimizeSettingsViewController(), animated: true)
     }
   }
   

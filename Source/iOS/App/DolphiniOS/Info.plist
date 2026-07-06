@@ -6,6 +6,102 @@
 	<string>NotSet</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>Gold</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Gold</string>
+				</array>
+			</dict>
+			<key>MidnightPro</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-MidnightPro</string>
+				</array>
+			</dict>
+			<key>NeonSpecial</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-NeonSpecial</string>
+				</array>
+			</dict>
+			<key>ClassicBlue</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-ClassicBlue</string>
+				</array>
+			</dict>
+			<key>MonoDeluxe</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-MonoDeluxe</string>
+				</array>
+			</dict>
+			<key>RainbowMidnight</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-RainbowMidnight</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>Gold</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Gold-Ipad</string>
+				</array>
+			</dict>
+			<key>MidnightPro</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-MidnightPro-Ipad</string>
+				</array>
+			</dict>
+			<key>NeonSpecial</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-NeonSpecial-Ipad</string>
+				</array>
+			</dict>
+			<key>ClassicBlue</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-ClassicBlue-Ipad</string>
+				</array>
+			</dict>
+			<key>MonoDeluxe</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-MonoDeluxe-Ipad</string>
+				</array>
+			</dict>
+			<key>RainbowMidnight</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-RainbowMidnight-Ipad</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -153,6 +249,8 @@
 					<string>rvz</string>
 					<string>dol</string>
 					<string>elf</string>
+					<string>nfs</string>
+					<string>bin</string>
 				</array>
 			</dict>
 		</dict>

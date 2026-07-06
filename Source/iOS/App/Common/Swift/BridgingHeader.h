@@ -15,6 +15,7 @@
 #import "JitManager+PTrace.h"
 #import "LegacyInputConfigMigrationService.h"
 #import "MainSceneCoordinator.h"
+#import "OptimizeSettingsViewController.h"
 #import "UpdateNoticeViewController.h"
 #import "UpdateRequiredNoticeViewController.h"
 

@@ -59,6 +59,8 @@ import UIKit
   }
 
   @objc func availableSkinNames() -> [String] {
+    seedBuiltInSkinsIfNeeded()
+
     let fm = FileManager.default
 
     guard let items = try? fm.contentsOfDirectory(atPath: skinsFolder) else {
@@ -66,6 +68,44 @@ import UIKit
     }
 
     return items.filter { isSkinPresent($0) }.sorted()
+  }
+
+  // Built-in skins are just bundled resource folders (Source/iOS/App/DolphiniOS/BuiltInSkins/)
+  // in the exact same "folder of named PNGs" format a user-imported skin uses - the simplest way
+  // to add them is to copy each one into the user's own Skins/ folder once, so every existing
+  // list/select/delete/lookup code path (which only ever knows about Skins/) needs no changes at
+  // all to support them. A user who deletes a built-in skin just won't see it re-appear unless
+  // they also delete/rename the marker below, matching how deleting a user skin behaves.
+  private static let kSeededBuiltInSkinsDefaultsKey = "TCSeededBuiltInSkinsV1"
+
+  private func seedBuiltInSkinsIfNeeded() {
+    guard !UserDefaults.standard.bool(forKey: TCSkinManager.kSeededBuiltInSkinsDefaultsKey) else {
+      return
+    }
+
+    guard let builtInRoot = Bundle.main.url(forResource: "BuiltInSkins", withExtension: nil) else {
+      return
+    }
+
+    ensureSkinsFolderExists()
+
+    let fm = FileManager.default
+    guard let skinFolders = try? fm.contentsOfDirectory(at: builtInRoot, includingPropertiesForKeys: nil) else {
+      return
+    }
+
+    for folder in skinFolders {
+      let name = folder.lastPathComponent
+      let destPath = skinsFolder.stringByAppendingPathComponent(name)
+
+      guard !isSkinPresent(name) else {
+        continue
+      }
+
+      try? fm.copyItem(atPath: folder.path, toPath: destPath)
+    }
+
+    UserDefaults.standard.set(true, forKey: TCSkinManager.kSeededBuiltInSkinsDefaultsKey)
   }
 
   @objc(deleteSkinNamed:) @discardableResult func deleteSkin(named name: String) -> Bool {

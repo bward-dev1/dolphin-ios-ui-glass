@@ -247,6 +247,50 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="aIc-oN-row">
+                                        <rect key="frame" x="20" y="400" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aIc-oN-row" id="aIc-oN-cnt">
+                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-oN-lbl">
+                                                    <rect key="frame" x="20" y="11" width="337.5" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="aIc-oN-lbl" secondAttribute="bottom" id="aIc-oN-c01"/>
+                                                <constraint firstItem="aIc-oN-lbl" firstAttribute="top" secondItem="aIc-oN-cnt" secondAttribute="topMargin" id="aIc-oN-c02"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aIc-oN-lbl" secondAttribute="trailing" constant="-20" id="aIc-oN-c03"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="aIc-oN-lbl" secondAttribute="leading" id="aIc-oN-c04"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="oPt-mZ-row">
+                                        <rect key="frame" x="20" y="443" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oPt-mZ-row" id="oPt-mZ-cnt">
+                                            <rect key="frame" x="0.0" y="0.0" width="345.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Optimize My Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPt-mZ-lbl">
+                                                    <rect key="frame" x="20" y="11" width="337.5" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="oPt-mZ-lbl" secondAttribute="bottom" id="oPt-mZ-c01"/>
+                                                <constraint firstItem="oPt-mZ-lbl" firstAttribute="top" secondItem="oPt-mZ-cnt" secondAttribute="topMargin" id="oPt-mZ-c02"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="oPt-mZ-lbl" secondAttribute="trailing" constant="-20" id="oPt-mZ-c03"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="oPt-mZ-lbl" secondAttribute="leading" id="oPt-mZ-c04"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="XA0-MI-tEo">
