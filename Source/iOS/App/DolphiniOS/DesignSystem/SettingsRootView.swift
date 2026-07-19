@@ -45,8 +45,7 @@ struct SettingsRootView: View {
               .navigationBarTitleDisplayMode(.inline)
           }
           NavigationLink("Graphics") {
-            UIKitHostingView.storyboard("GraphicsSettings")
-              .navigationBarTitleDisplayMode(.inline)
+            GraphicsSettingsView()
           }
           NavigationLink("Controllers") {
             UIKitHostingView.storyboard("ControllersSettings")

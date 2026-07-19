@@ -10,6 +10,8 @@
 		D804AB586A8E7195ED7C932B /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86E5603037EB948D853487 /* DesignTokens.swift */; };
 		099B81C7ADE2AEFD8EF09E74 /* RootAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B713A76FA3CE924B9BF081 /* RootAppView.swift */; };
 		497C9500507DFFAD2E2AD803 /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B21087BFD88C422A32DFFE /* SettingsRootView.swift */; };
+		5F534A86B1CC46DEAE207887 /* GraphicsBackendInfoBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49F85AB9DC284D29AD62F10F /* GraphicsBackendInfoBridge.mm */; };
+		545A8DBDA66449C48CCEF40E /* GraphicsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249356468654C91B4EA29FA /* GraphicsSettingsView.swift */; };
 		AF354D8E870B3893EA95B36E /* UIKitHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B666B3E24DC6FFD354BC229 /* UIKitHostingView.swift */; };
 		BF0EEEC9F5B76D9C9ABA36B8 /* DeviceProfile.mm in Sources */ = {isa = PBXBuildFile; fileRef = BD8C13EEB5457814D5D70B94 /* DeviceProfile.mm */; };
 		9229160AE619D0C5EFF17924 /* OptimizeSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D50D423ADD690585B3C6F110 /* OptimizeSettingsViewController.mm */; };
@@ -279,6 +281,9 @@
 		1F86E5603037EB948D853487 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		30B713A76FA3CE924B9BF081 /* RootAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootAppView.swift; sourceTree = "<group>"; };
 		C8B21087BFD88C422A32DFFE /* SettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRootView.swift; sourceTree = "<group>"; };
+		A6BFD8F8A49345279CB99E33 /* GraphicsBackendInfoBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicsBackendInfoBridge.h; sourceTree = "<group>"; };
+		49F85AB9DC284D29AD62F10F /* GraphicsBackendInfoBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphicsBackendInfoBridge.mm; sourceTree = "<group>"; };
+		0249356468654C91B4EA29FA /* GraphicsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsSettingsView.swift; sourceTree = "<group>"; };
 		3B666B3E24DC6FFD354BC229 /* UIKitHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitHostingView.swift; sourceTree = "<group>"; };
 		B900A7A227F25718000361DD /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		B900A7A627F26F61000361DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1900,6 +1905,9 @@
 				1F86E5603037EB948D853487 /* DesignTokens.swift */,
 				30B713A76FA3CE924B9BF081 /* RootAppView.swift */,
 				C8B21087BFD88C422A32DFFE /* SettingsRootView.swift */,
+				0249356468654C91B4EA29FA /* GraphicsSettingsView.swift */,
+				A6BFD8F8A49345279CB99E33 /* GraphicsBackendInfoBridge.h */,
+				49F85AB9DC284D29AD62F10F /* GraphicsBackendInfoBridge.mm */,
 				3B666B3E24DC6FFD354BC229 /* UIKitHostingView.swift */,
 			);
 			path = DesignSystem;
@@ -2385,6 +2393,8 @@
 				D804AB586A8E7195ED7C932B /* DesignTokens.swift in Sources */,
 				099B81C7ADE2AEFD8EF09E74 /* RootAppView.swift in Sources */,
 				497C9500507DFFAD2E2AD803 /* SettingsRootView.swift in Sources */,
+				5F534A86B1CC46DEAE207887 /* GraphicsBackendInfoBridge.mm in Sources */,
+				545A8DBDA66449C48CCEF40E /* GraphicsSettingsView.swift in Sources */,
 				AF354D8E870B3893EA95B36E /* UIKitHostingView.swift in Sources */,
 				BF0EEEC9F5B76D9C9ABA36B8 /* DeviceProfile.mm in Sources */,
 				9229160AE619D0C5EFF17924 /* OptimizeSettingsViewController.mm in Sources */,

@@ -10,6 +10,7 @@
 #import "FirebaseService.h"
 #import "FirstRunInitializationService.h"
 #import "GameFileCacheManager.h"
+#import "GraphicsBackendInfoBridge.h"
 #import "JitManager.h"
 #import "JitManager+AltServer.h"
 #import "JitManager+JitStreamer.h"
