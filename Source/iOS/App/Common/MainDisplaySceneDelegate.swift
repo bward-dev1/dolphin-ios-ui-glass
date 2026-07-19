@@ -1,13 +1,21 @@
 // Copyright 2022 DolphiniOS Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+import SwiftUI
 import UIKit
 
 class MainDisplaySceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
-  
+
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-    MainSceneCoordinator.shared().mainScene = scene as? UIWindowScene
+    guard let windowScene = scene as? UIWindowScene else { return }
+
+    MainSceneCoordinator.shared().mainScene = windowScene
+
+    let newWindow = UIWindow(windowScene: windowScene)
+    newWindow.rootViewController = UIHostingController(rootView: RootAppView())
+    newWindow.makeKeyAndVisible()
+    window = newWindow
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {
