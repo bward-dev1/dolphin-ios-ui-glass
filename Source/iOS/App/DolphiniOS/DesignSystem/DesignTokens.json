@@ -1,0 +1,50 @@
+{
+  "$comment": "Tier 3 copy — canonical spec lives in dolphin-ios-ui (Tier 1). See DESIGN_TOKENS.md for rationale. Not compiled into the app — interchange format shared across tiers.",
+  "color": {
+    "background": {
+      "primary": { "light": "#F5F6F8", "dark": "#0B0C10" },
+      "secondary": { "light": "#FFFFFF", "dark": "#16171C" }
+    },
+    "surface": {
+      "glass": {
+        "light": { "color": "#FFFFFF", "opacity": 0.62 },
+        "dark": { "color": "#FFFFFF", "opacity": 0.08 }
+      }
+    },
+    "accent": {
+      "start": "#3217FF",
+      "end": "#1792FF",
+      "solid": { "light": "#2455FF", "dark": "#4B7CFF" }
+    },
+    "text": {
+      "primary": { "light": "#101114", "dark": "#F2F3F5" },
+      "secondary": { "light": "#5B5F6B", "dark": "#9BA0AC" }
+    },
+    "border": {
+      "hairline": { "light": { "color": "#000000", "opacity": 0.08 }, "dark": { "color": "#FFFFFF", "opacity": 0.10 } }
+    },
+    "destructive": { "light": "#E5484D", "dark": "#F2555A" },
+    "success": { "light": "#2FB673", "dark": "#3ECB86" }
+  },
+  "spacing": { "xs": 4, "sm": 8, "md": 16, "lg": 24, "xl": 40 },
+  "radius": { "sm": 8, "md": 14, "lg": 22, "pill": 999 },
+  "type": {
+    "display": { "textStyle": "largeTitle", "weight": "bold" },
+    "title": { "textStyle": "title2", "weight": "semibold" },
+    "headline": { "textStyle": "headline", "weight": "semibold" },
+    "body": { "textStyle": "body", "weight": "regular" },
+    "caption": { "textStyle": "footnote", "weight": "regular" }
+  },
+  "motion": {
+    "duration": { "fast": 0.18, "standard": 0.32, "slow": 0.5 },
+    "spring": { "response": 0.4, "dampingFraction": 0.86 }
+  },
+  "haptics": {
+    "selection": "sensoryFeedback(.selection)",
+    "success": "sensoryFeedback(.success)",
+    "warning": "sensoryFeedback(.warning)"
+  },
+  "nativeGlass": {
+    "tier3Note": "Real .glassEffect(_:in:)/GlassEffectContainer, iOS 26+. No simulation. Requires an Xcode toolchain with the iOS 26 SDK — confirm in CI before real screen work."
+  }
+}
